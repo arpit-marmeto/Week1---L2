@@ -133,14 +133,19 @@ function clearCart() {
 }
 
 document.querySelector('.checkout-btn').addEventListener('click', () => {
+    // Show order confirmation notification
     notification.classList.remove('hidden');
     notification.innerText = "Your order is booked!";
+    
+    // Hide the notification after 3 seconds and then clear the cart
     setTimeout(() => {
         notification.classList.add('hidden');
+        clearCart(); // Clear cart after the confirmation message is hidden
     }, 3000);
-    clearCart();
 });
 
 document.querySelector('.sort-asc').addEventListener('click', () => sortCart('asc'));
 document.querySelector('.sort-desc').addEventListener('click', () => sortCart('desc'));
 document.querySelector('.clear-cart').addEventListener('click', clearCart);
+
+
