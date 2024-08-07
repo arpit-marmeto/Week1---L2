@@ -14,12 +14,12 @@ closeShopping.addEventListener('click', () => {
     body.classList.remove('active');
 });
 let products = [
-    { id: 1, name: 'Paneer Butter Masala', image: '1.PNG', price: 250, category: 'North Indian' },
-    { id: 2, name: 'Masala Dosa', image: '2.PNG', price: 150, category: 'South Indian' },
-    { id: 3, name: 'Margherita Pizza', image: '3.PNG', price: 300, category: 'Italian' },
-    { id: 4, name: 'Kung Pao Chicken', image: '4.PNG', price: 350, category: 'Chinese' },
+    { id: 1, name: 'Paneer Butter Masala', image: '4.PNG', price: 250, category: 'North Indian' },
+    { id: 2, name: 'Masala Dosa', image: '1.PNG', price: 150, category: 'South Indian' },
+    { id: 3, name: 'Margherita Pizza', image: '6.PNG', price: 300, category: 'Italian' },
+    { id: 4, name: 'Kung Pao Chicken', image: '2.PNG', price: 350, category: 'Chinese' },
     { id: 5, name: 'Tacos', image: '5.PNG', price: 200, category: 'Mexican' },
-    { id: 6, name: 'Spaghetti Carbonara', image: '6.PNG', price: 400, category: 'Italian' }
+    { id: 6, name: 'Spaghetti Carbonara', image: '3.PNG', price: 400, category: 'Italian' }
 ];
 
 let listCards = []; // Array to store cart items
@@ -147,5 +147,4 @@ document.querySelector('.checkout-btn').addEventListener('click', () => {
 document.querySelector('.sort-asc').addEventListener('click', () => sortCart('asc'));
 document.querySelector('.sort-desc').addEventListener('click', () => sortCart('desc'));
 document.querySelector('.clear-cart').addEventListener('click', clearCart);
-
 
