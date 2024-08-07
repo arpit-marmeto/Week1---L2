@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Food Booking</h1>
+        <div class="shopping">
+            <img src="image/shopping.svg" alt="Cart">
+            <span class="quantity">0</span>
+        </div>
+    </header>
+
+    <div class="categories">
+        <button onclick="filterCategory('all')">All</button>
+        <button onclick="filterCategory('North Indian')">North Indian</button>
+        <button onclick="filterCategory('South Indian')">South Indian</button>
+        <button onclick="filterCategory('Italian')">Italian</button>
+        <button onclick="filterCategory('Chinese')">Chinese</button>
+        <button onclick="filterCategory('Mexican')">Mexican</button>
+    </div>
+
+    <div class="container">
+        <div class="list">
+            <!-- Food items will be displayed here -->
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h1>Cart</h1>
+            <button class="closeShopping">Close</button>
+        </div>
+        <ul class="listCard"></ul>
+        <div class="checkOut">
+            <div class="total">Total: ₹0</div>
+            <div class="average-price">Average Price: ₹0</div>
+            <button class="checkout-btn">Checkout</button>
+            <button class="sort-asc">Sort Ascending</button>
+            <button class="sort-desc">Sort Descending</button>
+            <button class="clear-cart">Clear Cart</button>
+        </div>
+        <div class="notification hidden">Notification</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

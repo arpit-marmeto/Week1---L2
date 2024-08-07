@@ -1,0 +1,302 @@
+/* Mobile first styles */
+body {
+    background-color: #F5E7B2;
+    font-family: system-ui;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #973131;
+    width: 100%;
+    color: #F5E7B2;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.shopping {
+    color: #F5E7B2;
+    margin-right: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.shopping img {
+    width: 24px; /* Smaller cart icon */
+}
+
+.shopping .quantity {
+    background: #F5E7B2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #973131;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    padding: 2px 5px;
+    font-size: 12px; /* Smaller font size for quantity */
+}
+
+/* Ensure the cart button is visible */
+header .shopping {
+    display: flex;
+    align-items: center;
+}
+
+/* Container for main content */
+.container {
+    width: 100%;
+    padding: 20px;
+    transition: 0.5s;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    margin-top: 20px;
+}
+
+.list .item {
+    text-align: center;
+    background-color: #E0A75E;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    color: #973131;
+}
+
+.list .item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.list .item .title {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.list .item .price {
+    margin: 10px 0;
+}
+
+.list .item button {
+    background-color: #973131;
+    color: #F5E7B2;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 90%;
+    max-width: 400px;
+    background-color: #F9D689;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+    z-index: 10;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.active .card {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h1 {
+    color: #973131;
+    font-weight: 100;
+    margin: 0;
+}
+
+.card-header button {
+    background-color: #E0A75E;
+    color: #973131;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.listCard {
+    flex: 1;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+.listCard li {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 80px;
+    color: #973131;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.listCard li div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listCard li img {
+    width: 100%;
+}
+
+.listCard li button {
+    background-color: #973131;
+    color: #F5E7B2;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.listCard .count {
+    margin: 0 10px;
+}
+
+.checkOut {
+    display: flex;
+    flex-direction: column;
+    background-color: #E0A75E;
+    padding: 10px;
+    color: #973131;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.checkOut button {
+    background-color: #973131;
+    color: #F5E7B2;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.checkOut .sort-asc {
+    background-color: #6D6E7A;
+}
+
+.checkOut .sort-desc {
+    background-color: #6D6E7A;
+}
+
+.checkOut .clear-cart {
+    background-color: #C23C24;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #E0A75E;
+    color: #973131;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Categories styling */
+.categories {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+    justify-content: center;
+    margin: 20px 0;
+    margin-left: 50px;
+}
+
+.categories button {
+    background-color: #E0A75E;
+    color: #973131;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    flex: 1 1 calc(25% - 10px); /* 4 buttons per row with spacing */
+    box-sizing: border-box;
+}
+
+.categories button:hover {
+    background-color: #973131;
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+    .categories button {
+        flex: 1 1 calc(20% - 10px); /* Adjust for more buttons per row if needed */
+    }
+}
+
+/* Desktop and larger screens */
+@media (min-width: 1024px) {
+    header {
+        width: 98%;
+    }
+    .categories {
+        flex-wrap: nowrap; /* No wrapping on larger screens */
+    }
+
+    .categories button {
+        flex: 1 1 auto; /* Buttons will be in a single row */
+    }
+
+    .container {
+        width: 1000px;
+        margin: auto;
+    }
+
+    .list {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 20px;
+    }
+
+    .card {
+        width: 500px;
+    }
+
+    .active .container {
+        transform: translateX(-200px);
+    }
+
+    .card .checkOut {
+        padding: 20px;
+    }
+
+    .card .checkOut .checkout-btn {
+        padding: 20px;
+    }
+}
