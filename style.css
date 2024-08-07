@@ -263,6 +263,7 @@ header h1 {
 @media (min-width: 1024px) {
     header {
         width: 98%;
+        height: 25px;
     }
     .categories {
         flex-wrap: nowrap;

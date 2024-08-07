@@ -13,6 +13,7 @@ openShopping.addEventListener('click', () => {
 closeShopping.addEventListener('click', () => {
     body.classList.remove('active');
 });
+
 let products = [
     { id: 1, name: 'Paneer Butter Masala', image: '4.PNG', price: 250, category: 'North Indian' },
     { id: 2, name: 'Masala Dosa', image: '1.PNG', price: 150, category: 'South Indian' },
@@ -23,12 +24,15 @@ let products = [
 ];
 
 let listCards = []; // Array to store cart items
+let addedButtons = {}; // Object to track buttons that are "Added"
 
+// Initialize the application
 function initApp() {
     displayItems(products);
 }
 initApp();
 
+// Display items in the product list
 function displayItems(items) {
     list.innerHTML = '';
     items.forEach((value, key) => {
@@ -38,11 +42,21 @@ function displayItems(items) {
             <img src="image/${value.image}" alt="${value.name}">
             <div class="title">${value.name}</div>
             <div class="price">₹${value.price.toLocaleString()}</div>
-            <button onclick="addToCart(${value.id})">Add To Cart</button>`;
+            <button id="add-to-cart-${value.id}" onclick="addToCart(${value.id}, this)">Add To Cart</button>`;
         list.appendChild(newDiv);
+        
+        // Reset button state if it was previously added
+        if (addedButtons[value.id]) {
+            const button = document.querySelector(`#add-to-cart-${value.id}`);
+            button.innerText = "Added";
+            button.style.backgroundColor = "#2f2f2f";
+            button.style.color = "#F5E7B2"; // Adjust color for readability
+            button.disabled = true; // Disable the button
+        }
     });
 }
 
+// Filter items based on category
 function filterCategory(category) {
     if (category === 'all') {
         displayItems(products);
@@ -52,7 +66,8 @@ function filterCategory(category) {
     }
 }
 
-function addToCart(id) {
+// Add an item to the cart
+function addToCart(id, button) {
     if (listCards.length >= 100) {
         alert("Cart cannot contain more than 100 products.");
         return;
@@ -63,15 +78,20 @@ function addToCart(id) {
 
     let cartItem = listCards.find(item => item.id === id);
     if (!cartItem) {
-        // Add new item to cart
         listCards.push({ ...product, quantity: 1 });
+        // Change button text and color to "Added" and #2f2f2f
+        button.innerText = "Added";
+        button.style.backgroundColor = "#2f2f2f";
+        button.style.color = "#F5E7B2"; // Adjust color for readability
+        button.disabled = true; // Disable the button
+        addedButtons[id] = true; // Track the button state
     } else {
-        // Increment quantity if item already in cart
         cartItem.quantity += 1;
     }
     reloadCart();
 }
 
+// Reload cart to reflect changes
 function reloadCart() {
     listCard.innerHTML = '';
     let count = 0;
@@ -100,11 +120,21 @@ function reloadCart() {
     displayAveragePrice(totalPrice, totalItems);
 }
 
+// Change the quantity of an item in the cart
 function changeQuantity(id, quantity) {
     let cartItem = listCards.find(item => item.id === id);
     if (cartItem) {
         if (quantity <= 0) {
             listCards = listCards.filter(item => item.id !== id);
+            // Reset button state when item is removed from cart
+            addedButtons[id] = false;
+            const button = document.querySelector(`#add-to-cart-${id}`);
+            if (button) {
+                button.innerText = "Add To Cart";
+                button.style.backgroundColor = "#973131"; // Reset background color
+                button.style.color = "#F5E7B2"; // Default text color
+                button.disabled = false; // Enable the button
+            }
         } else {
             cartItem.quantity = quantity;
         }
@@ -112,16 +142,19 @@ function changeQuantity(id, quantity) {
     reloadCart();
 }
 
+// Display the average price of items in the cart
 function displayAveragePrice(totalPrice, totalItems) {
     const averagePrice = totalItems > 0 ? (totalPrice / totalItems).toFixed(2) : 0;
     document.querySelector('.average-price').innerText = `Average Price: ₹${averagePrice}`;
 }
 
+// Sort cart items by price
 function sortCart(order = 'asc') {
     listCards.sort((a, b) => order === 'asc' ? a.price - b.price : b.price - a.price);
     reloadCart();
 }
 
+// Clear all items from the cart
 function clearCart() {
     listCards = [];
     reloadCart();
@@ -132,19 +165,18 @@ function clearCart() {
     }, 3000);
 }
 
+// Handle checkout button click
 document.querySelector('.checkout-btn').addEventListener('click', () => {
-    // Show order confirmation notification
     notification.classList.remove('hidden');
     notification.innerText = "Your order is booked!";
     
-    // Hide the notification after 3 seconds and then clear the cart
     setTimeout(() => {
         notification.classList.add('hidden');
-        clearCart(); // Clear cart after the confirmation message is hidden
+        clearCart();
     }, 3000);
 });
 
+// Event listeners for sorting and clearing the cart
 document.querySelector('.sort-asc').addEventListener('click', () => sortCart('asc'));
 document.querySelector('.sort-desc').addEventListener('click', () => sortCart('desc'));
 document.querySelector('.clear-cart').addEventListener('click', clearCart);
-
