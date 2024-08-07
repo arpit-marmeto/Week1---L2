@@ -12,20 +12,21 @@
     <header>
         <h1>Food Booking</h1>
         <div class="shopping">
-            <img src="image/shopping.svg" alt="Cart">
+            <img src="image/shoppingcart.png" alt="Cart">
             <span class="quantity">0</span>
         </div>
     </header>
 
 
     <div class="categories">
-        <button onclick="filterCategory('all')">All</button>
-        <button onclick="filterCategory('North Indian')">North Indian</button>
-        <button onclick="filterCategory('South Indian')">South Indian</button>
-        <button onclick="filterCategory('Italian')">Italian</button>
-        <button onclick="filterCategory('Chinese')">Chinese</button>
-        <button onclick="filterCategory('Mexican')">Mexican</button>
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="North Indian">North Indian</button>
+        <button class="category-btn" data-category="South Indian">South Indian</button>
+        <button class="category-btn" data-category="Italian">Italian</button>
+        <button class="category-btn" data-category="Chinese">Chinese</button>
+        <button class="category-btn" data-category="Mexican">Mexican</button>
     </div>
+    
 
     <div class="container">
         <div class="list">

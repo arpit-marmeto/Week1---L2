@@ -1,3 +1,4 @@
+// Get references to DOM elements
 let openShopping = document.querySelector('.shopping');
 let closeShopping = document.querySelector('.closeShopping');
 let list = document.querySelector('.list');
@@ -6,7 +7,9 @@ let body = document.querySelector('body');
 let total = document.querySelector('.total');
 let quantity = document.querySelector('.quantity');
 let notification = document.querySelector('.notification');
+let categoryButtons = document.querySelectorAll('.category-btn');
 
+// Open and close the shopping cart
 openShopping.addEventListener('click', () => {
     body.classList.add('active');
 });
@@ -14,6 +17,14 @@ closeShopping.addEventListener('click', () => {
     body.classList.remove('active');
 });
 
+// Close the cart when clicking outside of it
+body.addEventListener('click', (event) => {
+    if (event.target === body) {
+        body.classList.remove('active');
+    }
+});
+
+// List of products
 let products = [
     { id: 1, name: 'Paneer Butter Masala', image: '4.PNG', price: 250, category: 'North Indian' },
     { id: 2, name: 'Masala Dosa', image: '1.PNG', price: 150, category: 'South Indian' },
@@ -23,10 +34,11 @@ let products = [
     { id: 6, name: 'Spaghetti Carbonara', image: '3.PNG', price: 400, category: 'Italian' }
 ];
 
-let listCards = []; // Array to store cart items
-let addedButtons = {}; // Object to track buttons that are "Added"
+// Variables to manage cart items and button states
+let listCards = []; 
+let addedButtons = {}; 
 
-// Initialize the application
+// Initialize the application by displaying products
 function initApp() {
     displayItems(products);
 }
@@ -45,18 +57,18 @@ function displayItems(items) {
             <button id="add-to-cart-${value.id}" onclick="addToCart(${value.id}, this)">Add To Cart</button>`;
         list.appendChild(newDiv);
         
-        // Reset button state if it was previously added
+        // Update button state if the item is already in the cart
         if (addedButtons[value.id]) {
             const button = document.querySelector(`#add-to-cart-${value.id}`);
             button.innerText = "Added";
             button.style.backgroundColor = "#2f2f2f";
-            button.style.color = "#F5E7B2"; // Adjust color for readability
-            button.disabled = true; // Disable the button
+            button.style.color = "#F5E7B2"; 
+            button.disabled = true; 
         }
     });
 }
 
-// Filter items based on category
+// Filter items by category
 function filterCategory(category) {
     if (category === 'all') {
         displayItems(products);
@@ -65,6 +77,15 @@ function filterCategory(category) {
         displayItems(filteredItems);
     }
 }
+
+// Handle category button clicks
+categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.category-btn.active').classList.remove('active');
+        button.classList.add('active');
+        filterCategory(button.getAttribute('data-category'));
+    });
+});
 
 // Add an item to the cart
 function addToCart(id, button) {
@@ -79,19 +100,18 @@ function addToCart(id, button) {
     let cartItem = listCards.find(item => item.id === id);
     if (!cartItem) {
         listCards.push({ ...product, quantity: 1 });
-        // Change button text and color to "Added" and #2f2f2f
         button.innerText = "Added";
         button.style.backgroundColor = "#2f2f2f";
-        button.style.color = "#F5E7B2"; // Adjust color for readability
-        button.disabled = true; // Disable the button
-        addedButtons[id] = true; // Track the button state
+        button.style.color = "#F5E7B2";
+        button.disabled = true; 
+        addedButtons[id] = true;
     } else {
         cartItem.quantity += 1;
     }
     reloadCart();
 }
 
-// Reload cart to reflect changes
+// Reload the cart
 function reloadCart() {
     listCard.innerHTML = '';
     let count = 0;
@@ -126,14 +146,13 @@ function changeQuantity(id, quantity) {
     if (cartItem) {
         if (quantity <= 0) {
             listCards = listCards.filter(item => item.id !== id);
-            // Reset button state when item is removed from cart
             addedButtons[id] = false;
             const button = document.querySelector(`#add-to-cart-${id}`);
             if (button) {
                 button.innerText = "Add To Cart";
-                button.style.backgroundColor = "#973131"; // Reset background color
-                button.style.color = "#F5E7B2"; // Default text color
-                button.disabled = false; // Enable the button
+                button.style.backgroundColor = "#973131";
+                button.style.color = "#F5E7B2"; 
+                button.disabled = false; 
             }
         } else {
             cartItem.quantity = quantity;
@@ -154,15 +173,12 @@ function sortCart(order = 'asc') {
     reloadCart();
 }
 
-// Clear all items from the cart
+// Clear all items from the cart and reset buttons
 function clearCart() {
     listCards = [];
+    addedButtons = {}; // Reset button states
     reloadCart();
-    notification.innerText = "Your cart is empty";
-    notification.classList.remove('hidden');
-    setTimeout(() => {
-        notification.classList.add('hidden');
-    }, 3000);
+    initApp(); // Reset the product list
 }
 
 // Handle checkout button click
